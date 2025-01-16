@@ -11,6 +11,7 @@
     "label": "Designations",
     "accessFor": ["Super Admin"]
   },
+
   {
     "icon": "ri-shopping-cart-line",
     "route": "/events",
@@ -27,6 +28,12 @@
     "icon": "ri-user-3-line",
     "route": "/users",
     "label": "all users",
+    "accessFor": ["Super Admin"]
+  },
+  {
+    "icon": "ri-dashboard-horizontal-line",
+    "route": "/reports-and-analytics",
+    "label": "dReports and Analytics",
     "accessFor": ["Super Admin"]
   }
 ]

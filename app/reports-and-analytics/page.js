@@ -1,97 +1,179 @@
+"use client";
+
 import DashboardLayout from "@/components/layout/dashboard_layout";
-import reports from "../../public/database/reports.json";
+import Cookies from "js-cookie";
+import moment from "moment";
+
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
+import axios from "axios";
+import { errorToast, successToast } from "@/utils/toastMessage";
+import { useEffect, useState } from "react";
 
 const ReportsAndAnalytics = () => {
+  const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState("");
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.BACKEND_API_BASE_URL}/api/super-admin/events/all`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("access_token")}`,
+            },
+          }
+        );
+        const data = await response.json();
+
+        console.log("Fetched data:", data); // Debugging log
+
+        if (data.error) {
+          errorToast(data.error);
+        } else if (Array.isArray(data.data)) {
+          setEvents(data.data);
+        } else {
+          errorToast("Unexpected data format");
+          setEvents([]);
+        }
+      } catch (error) {
+        errorToast("An error occurred while fetching events.");
+        console.error(error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    if (!selectedEvent) {
+      errorToast("Select an event");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.BACKEND_API_BASE_URL}/api/super-admin/reports/${selectedEvent}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("access_token")}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.error) {
+        errorToast(data.error);
+        return;
+      }
+
+      const events = data.data;
+
+      // Create a new workbook
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Events");
+
+      // Add headers
+      worksheet.columns = [
+        { header: "Hall", key: "hall", width: 15 },
+        { header: "Name", key: "name", width: 20 },
+        { header: "Mobile No", key: "mobileNo", width: 15 },
+        { header: "Position", key: "position", width: 20 },
+        { header: "Designation", key: "designation", width: 20 },
+        { header: "Supervisor Name", key: "supervisorName", width: 20 },
+        { header: "Supervisor Mobile No", key: "supervisorMobileNo", width: 20 },
+        { header: "Date", key: "date", width: 15 },
+        { header: "Shift", key: "shift", width: 15 },
+        { header: "Image", key: "image", width: 30 },
+      ];
+
+      // Add rows and images
+      for (const [index, event] of events.entries()) {
+        let row = worksheet.addRow({
+          hall: event.hall,
+          name: event.name,
+          mobileNo: event.mobileNo,
+          position: event.position,
+          designation: event.designation,
+          supervisorName: event.supervisorName,
+          supervisorMobileNo: event.supervisorMobileNo,
+          date: new Date(event.date).toISOString().split("T")[0],
+          shift: event.shift,
+          image: event.image,
+        });
+        row.height = 100;
+        try {
+          const imageResponse = await axios.get(event.image, {
+            responseType: "arraybuffer",
+          });
+          const imageId = workbook.addImage({
+            buffer: imageResponse.data,
+            extension: "jpg", // Adjust based on the image type
+          });
+
+          worksheet.addImage(imageId, {
+            tl: { col: 9, row: index + 1 },
+            ext: { width: 100, height: 100 },
+          });
+        } catch (error) {
+          console.error(`Failed to fetch image: ${event.image}`, error);
+        }
+      }
+
+      // Save workbook
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "events_with_images.xlsx");
+    } catch (error) {
+      errorToast("An error occurred");
+      console.error(error);
+    }
+  };
+
   return (
     <DashboardLayout>
       <section className="w-full text-gray-600">
-        {/* manage */}
-        <div className="flex flex-wrap gap-4 mt-2">
-          <div className="w-full lg:w-1/4 bg-white rounded-xl flex flex-col items-center justify-center gap-3 p-4 hover:border hover:border-blue-400 shadow">
-            <div className="bg-blue-100 w-fit p-3 rounded-full">
-              <i className="ri-group-line ri-xl text-blue-400"></i>
-            </div>
-            <p className="text-sm font-medium">Manage Report</p>
-          </div>
-          <div className="w-full lg:w-1/4 bg-white rounded-xl flex flex-col items-center justify-center gap-3 p-4 hover:border hover:border-amber-400 shadow">
-            <div className="bg-amber-100 w-fit p-3 rounded-full">
-              <i className="ri-box-2-line ri-xl text-amber-400"></i>
-            </div>
-            <p className="text-sm font-medium">Maintenance Report</p>
-          </div>
-        </div>
-        {/* manage inventory */}
         <div className="w-full bg-white rounded-xl mt-6 pb-6 shadow">
           <div className="p-5 flex lg:flex-row flex-col gap-4 lg:gap-0 items-center justify-between w-full">
             <div className="flex w-full gap-4">
-              <input
-                className="bg-gray-100 rounded-full px-6 py-2 w-[80%] lg:w-80 text-sm outline-none"
-                type="text"
-                placeholder="Search ID/Location"
-              />
-              <div className=" flex items-center">
-                <i className="ri-filter-2-line ri-lg "></i>
+              <div className="flex w-full flex-col gap-2 pb-4">
+                <select
+                  value={selectedEvent}
+                  onChange={(e) => setSelectedEvent(e.target.value)}
+                  className="w-full border bg-gray-100 p-2 rounded-lg outline-none disabled:opacity-50"
+                >
+                  <option value="">Select Event</option>
+                  {Array.isArray(events) &&
+                    events.map((event) => (
+                      <option key={event._id} value={event._id}>
+                        {event.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <div className="flex items-center">
+                <i className="ri-filter-2-line ri-lg"></i>
                 <p className="text-sm text-gray-400">Filter</p>
               </div>
             </div>
             <div className="text-sm w-full flex justify-end gap-4">
-              <button className="bg-violet-100 w-1/2 lg:w-fit p-2 rounded-lg text-violet-800">
-                <i className="ri-share-fill ri-lg "></i> Share
-              </button>
-              <button className="bg-violet-100 w-1/2 lg:w-fit p-2 rounded-lg text-violet-800">
-                <i className="ri-import-fill ri-lg "></i> Download
+              <button
+                className="bg-violet-100 w-1/2 lg:w-fit p-2 rounded-lg text-violet-800"
+                onClick={handleClick}
+              >
+                <i className="ri-import-fill ri-lg"></i> Download
               </button>
             </div>
-          </div>
-          {/* trolley tracker */}
-          <div className="overflow-x-auto">
-            <table className="w-full font-medium text-nowrap">
-              <thead className="bg-gray-100 text-sm">
-                <tr>
-                  <th className="text-left font-medium  px-4 py-3">ID</th>
-                  <th className="text-left font-medium px-4 py-3">LOCATION</th>
-                  <th className="text-left font-medium px-4 py-3">SCOPE</th>
-                  <th className="text-left font-medium px-4 py-3">
-                    RECEIVE DATE
-                  </th>
-                  <th className="text-left font-medium px-4 py-3">
-                    REPAIR DATE
-                  </th>
-                  <th className="text-left font-medium px-4 py-3">STATUS</th>
-                  <th className="text-left font-medium px-4 py-3"></th>
-                </tr>
-              </thead>
-              <tbody className="text-xs">
-                {reports.map((item, index) => {
-                  return (
-                    <tr key={index} className="border-b">
-                      <td className="px-4 py-3">{item.id}</td>
-                      <td className="px-4 py-3 text-left">{item.location}</td>
-                      <td className="px-4 py-3 text-left capitalize">
-                        {item.scope}
-                      </td>
-                      <td className="px-4 py-3 text-left">
-                        {item.receive_date}
-                      </td>
-                      <td className="px-4 py-3 text-left">
-                        {item.repair_date}
-                      </td>
-                      <td className="px-4 py-3 text-left">
-                        <p
-                          className={` ${
-                            item.status === "pending"
-                              ? "bg-red-100 text-red-600"
-                              : "bg-green-100 text-green-600"
-                          } w-[80%] capitalize text-center rounded py-1`}
-                        >
-                          {item.status}
-                        </p>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
           </div>
         </div>
       </section>
