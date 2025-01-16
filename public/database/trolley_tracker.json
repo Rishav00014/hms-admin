@@ -1,0 +1,132 @@
+[
+  {
+    "id": "0001",
+    "location": "banglore",
+    "date": "04 Sep 2019",
+    "status": "warranty",
+    "technician": "christine",
+    "last_maintain_date": "04 Sep 2019",
+    "upcoming_maintain_date": "31 Dec 2024",
+    "curr_status": "good",
+    "history": [
+      {
+        "scope": "service",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "difficult to move"
+      },
+      {
+        "scope": "repair",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "degradation of parts"
+      }
+    ]
+  },
+  {
+    "id": "0002",
+    "location": "kochi",
+    "date": "04 Oct 2020",
+    "status": "warranty",
+    "technician": "christine",
+    "last_maintain_date": "04 Sep 2019",
+    "upcoming_maintain_date": "31 Dec 2024",
+    "curr_status": "good",
+    "history": [
+      {
+        "scope": "service",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "difficult to move"
+      },
+      {
+        "scope": "repair",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "degradation of parts"
+      }
+    ]
+  },
+  {
+    "id": "0003",
+    "location": "Bombay",
+    "date": "04 Oct 2024",
+    "status": "regular",
+    "technician": "christine",
+    "last_maintain_date": "04 Sep 2019",
+    "upcoming_maintain_date": "31 Dec 2024",
+    "curr_status": "good",
+    "history": [
+      {
+        "scope": "service",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "difficult to move"
+      },
+      {
+        "scope": "repair",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "degradation of parts"
+      }
+    ]
+  },
+  {
+    "id": "0004",
+    "location": "Delhi",
+    "date": "04 Noc 2025",
+    "status": "regular",
+    "technician": "christine",
+    "last_maintain_date": "04 Sep 2019",
+    "upcoming_maintain_date": "31 Dec 2024",
+    "curr_status": "good",
+    "history": [
+      {
+        "scope": "service",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "difficult to move"
+      },
+      {
+        "scope": "repair",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "degradation of parts"
+      }
+    ]
+  },
+  {
+    "id": "0005",
+    "location": "089 okhla  40",
+    "date": "04 Dec 2019",
+    "status": "warranty",
+    "technician": "christine",
+    "last_maintain_date": "04 Sep 2019",
+    "upcoming_maintain_date": "31 Dec 2024",
+    "curr_status": "good",
+    "history": [
+      {
+        "scope": "service",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "difficult to move"
+      },
+      {
+        "scope": "repair",
+        "receive_date": "04 Sep 2019",
+        "repair_date": "05 Sep 2020",
+        "dispatch_date": "20 May 2025",
+        "comment": "degradation of parts"
+      }
+    ]
+  }
+]

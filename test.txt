@@ -1,0 +1,13 @@
+{
+  "icon": "ri-settings-3-line",
+  "route": "/settings",
+  "label": "settings",
+  "accessFor": ["Super Admin"]
+}
+
+  {
+    "icon": "ri-file-chart-line",
+    "route": "/reports-and-analytics",
+    "label": "reports and analytics",
+    "accessFor": ["Super Admin", "Service Person", "Air India"]
+  },

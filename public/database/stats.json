@@ -1,0 +1,26 @@
+[
+  {
+    "title": "total user",
+    "icon": "ri-group-line",
+    "number": "30",
+    "stat": "8.5%"
+  },
+  {
+    "title": "Total event",
+    "icon": "ri-box-2-line",
+    "number": "50",
+    "stat": "2%"
+  },
+  {
+    "title": "Total halls",
+    "icon": "ri-signal-tower-line",
+    "number": "100",
+    "stat": "1.5%"
+  },
+  {
+    "title": "total services",
+    "icon": "ri-history-line",
+    "number": "5",
+    "stat": "3.2%"
+  }
+]

@@ -1,0 +1,32 @@
+[
+    {
+        "name": "moni",
+        "gmail": "abc@gmail.com",
+        "number": "54637xxxxx",
+        "role": "super admin"
+    },
+    {
+        "name": "moni",
+        "gmail": "abc@gmail.com",
+        "number": "54637xxxxx",
+        "role": "super admin"
+    },
+    {
+        "name": "rakesh",
+        "gmail": "abc@gmail.com",
+        "number": "54637xxxxx",
+        "role": "staff"
+    },
+    {
+        "name": "suresh",
+        "gmail": "abc@gmail.com",
+        "number": "54637xxxxx",
+        "role": "air india"
+    },
+    {
+        "name": "ramesh",
+        "gmail": "abc@gmail.com",
+        "number": "54637xxxxx",
+        "role": "super admin"
+    }
+]

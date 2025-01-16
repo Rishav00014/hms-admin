@@ -1,0 +1,26 @@
+[
+  {
+    "icon": "ri-dashboard-horizontal-line",
+    "route": "/",
+    "label": "dashboard",
+    "accessFor": ["Super Admin"]
+  },
+  {
+    "icon": "ri-shopping-cart-line",
+    "route": "/trolleys",
+    "label": "Events",
+    "accessFor": ["Super Admin"]
+  },
+  {
+    "icon": "ri-user-3-line",
+    "route": "/users/create",
+    "label": "create user",
+    "accessFor": ["Super Admin"]
+  },
+  {
+    "icon": "ri-user-3-line",
+    "route": "/users",
+    "label": "all users",
+    "accessFor": ["Super Admin"]
+  }
+]

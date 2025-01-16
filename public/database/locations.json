@@ -1,0 +1,18 @@
+[
+    {
+        "city": "delhi",
+        "count": "30"
+    },
+    {
+        "city": "banglore",
+        "count": "20"
+    },
+    {
+        "city": "kochi",
+        "count": "6"
+    },
+    {
+        "city": "Bombay",
+        "count": "300"
+    }
+]
