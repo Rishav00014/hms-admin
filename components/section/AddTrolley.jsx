@@ -8,7 +8,7 @@ const AddTrolley = ({ onClose, onSubmit, initialState = {} }) => {
     name: initialState?.name || "",
     startDate: initialState?.startDate?.substring(0,10) || "",
     endDate: initialState?.endDate?.substring(0,10) || "",
-    comment:""
+    description:initialState?.description || "",
   });
 
   const handleChange = (event) => {
@@ -69,9 +69,8 @@ const AddTrolley = ({ onClose, onSubmit, initialState = {} }) => {
           <div className="flex flex-col gap-2 pb-4">
             <label>Note/Comments</label>
             <textarea
-              required
-              name="comment"
-              value={requestData?.comment}
+              name="description"
+              value={trollyData?.description}
               onChange={handleChange}
               className="border p-2 h-20 rounded-lg bg-gray-100 outline-none"
               type="text"
@@ -81,7 +80,7 @@ const AddTrolley = ({ onClose, onSubmit, initialState = {} }) => {
 
           <div className="flex justify-between gap-4 pt-4">
             <Link
-              href="/trolleys"
+              href="/events"
               className="border text-center border-blue-400 w-[48%] text-blue-400 rounded-lg p-2"
             >
               Cancel

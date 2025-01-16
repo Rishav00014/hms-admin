@@ -76,8 +76,8 @@ const AddHall = ({
 
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
-      <section className="w-1/3 bg-white text-gray-600 rounded-xl">
+    <div className="fixed z-50 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
+      <section className="z-50 w-2/3 lg:w-1/3 bg-white text-gray-600 rounded-xl">
         <div className="bg-blue-400 text-white font-semibold p-4 rounded-t-xl flex items-center justify-between">
           <h1>Add Hall</h1>{" "}
         </div>

@@ -57,14 +57,14 @@ const TrolleyMain = ({
         successToast("Trolley updated");
       }
       dispatch(fetchTrolley({ token }));
-      router.replace("/trolleys");
+      router.replace("/events");
     } else {
       const message = resultAction.payload;
       errorToast(message);
     }
   };
   const deleteTrolleyById = async (id) => {
-    const isDelete = confirm("Are you sure want to delete this Trolley?");
+    const isDelete = confirm("Are you sure want to delete this Event ?");
 
     if (!isDelete) {
       return;
@@ -78,7 +78,7 @@ const TrolleyMain = ({
     if (deleteTrolley.fulfilled.match(resultAction)) {
       if (id) {
         successToast("Trolley deleted");
-        router.replace("/trolleys");
+        router.replace("/events");
       }
       dispatch(fetchTrolley({ token }));
     } else {
@@ -152,10 +152,6 @@ const TrolleyMain = ({
     return () => {};
   }, [modalStatus]);
 
-  const actionAccess = ["Super Admin", "Service Person"];
-  const deleteAccess = ["Super Admin"];
-  const hasAccess = actionAccess?.includes(user?.role) || false;
-  const hasDeleteAccess = deleteAccess?.includes(user?.role) || false;
 
   useEffect(() => {
     setSortedTrolleyList(trolleyList);
@@ -172,10 +168,8 @@ const TrolleyMain = ({
           <p>Streamline Your Events Today</p>
         </div>
         <Link
-          href={!hasAccess ? "#" : "/trolleys/add"}
-          className={`bg-orange-400 font-bold px-4 py-2 h-fit rounded-lg ${
-            !hasAccess ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+          href="/events/add"
+          className={`bg-orange-400 font-bold px-4 py-2 h-fit rounded-lg`}
         >
           Add Events
         </Link>
@@ -239,7 +233,7 @@ const TrolleyMain = ({
                       </td>
                       <td className="text-center px-4 py-3">
                       <Link
-                          href={`/trolleys/details/${_id}?basicInfo=${JSON.stringify(
+                          href={`/events/details/${_id}?basicInfo=${JSON.stringify(
                             trolleyData
                           )}`}
                           className="text-blue-400 hover:text-orange-500"
@@ -254,30 +248,17 @@ const TrolleyMain = ({
                       <td className="px-4 py-3 text-center capitalize">
                       {moment(endDate).format("D MMM YY") || "N/A"}
                       </td>
-                      
                       <td className="px-4 py-3 flex items-center justify-center">
                         <div className="border py-1.5 w-fit rounded-full px-4">
                           <Link
-                            href={
-                              !hasAccess
-                                ? "#"
-                                : `/trolleys/update/${_id}?details=${JSON.stringify(
+                            href= {`/events/update/${_id}?details=${JSON.stringify(
                                     trolleyData
-                                  )}`
-                            }
-                            className={
-                              !hasAccess ? "opacity-40 cursor-not-allowed" : ""
-                            }
+                                  )}`}
                           >
                             <i className="ri-edit-box-line ri-lg border-r pe-2"></i>
                           </Link>
                           <button
-                            disabled={userLoading || !hasDeleteAccess}
-                            className={
-                              !hasDeleteAccess
-                                ? "opacity-40 cursor-not-allowed"
-                                : ""
-                            }
+                            disabled={userLoading }
                             onClick={() => deleteTrolleyById(_id)}
                           >
                             <i className="ri-delete-bin-6-line ri-lg text-red-400 ps-2"></i>

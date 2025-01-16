@@ -7,7 +7,13 @@
   },
   {
     "icon": "ri-shopping-cart-line",
-    "route": "/trolleys",
+    "route": "/designation",
+    "label": "Designations",
+    "accessFor": ["Super Admin"]
+  },
+  {
+    "icon": "ri-shopping-cart-line",
+    "route": "/events",
     "label": "Events",
     "accessFor": ["Super Admin"]
   },
