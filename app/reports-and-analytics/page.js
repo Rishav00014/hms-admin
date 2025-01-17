@@ -113,7 +113,8 @@ const ReportsAndAnalytics = () => {
         });
         row.height = 100;
         try {
-          const imageResponse = await axios.get(event.image, {
+          let imgUrl = event.image.replace("http", "https");
+          const imageResponse = await axios.get(imgUrl, {
             responseType: "arraybuffer",
           });
           const imageId = workbook.addImage({
