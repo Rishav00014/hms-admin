@@ -93,6 +93,7 @@ const ReportsAndAnalytics = () => {
         { header: "Date", key: "date", width: 15 },
         { header: "Shift", key: "shift", width: 15 },
         { header: "Image", key: "image", width: 30 },
+        { header: "ImageUrl", key: "imageUrl", width: 30 },
       ];
 
       // Add rows and images
@@ -107,7 +108,8 @@ const ReportsAndAnalytics = () => {
           supervisorMobileNo: event.supervisorMobileNo,
           date: new Date(event.date).toISOString().split("T")[0],
           shift: event.shift,
-          image: event.image,
+          imageUrl: event.image,
+          image: ""
         });
         row.height = 100;
         try {
