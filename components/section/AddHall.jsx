@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddHall = ({
   onClose,
@@ -23,7 +23,7 @@ const AddHall = ({
     supervisor: "",
     event: eventId
   });
-  const { dataLoading,supervisor =[] } = useSelector(
+  const { dataLoading, supervisor } = useSelector(
     (state) => state.hall
   );
   const token = Cookies.get("access_token");
@@ -37,7 +37,7 @@ const AddHall = ({
 
   const sendRequest = async (event, data) => {
     event.preventDefault();
-    const resultAction =await dispatch(
+    const resultAction = await dispatch(
       createHall({
         token,
         data,
@@ -52,12 +52,12 @@ const AddHall = ({
         supervisor: "",
         event: eventId
       });
-      if (trolleyId!=="") {
+      if (trolleyId !== "") {
         successToast("Request updated");
       }
-      dispatch(fetchServiceHistory({ token,trolleyId:eventId}));
+      dispatch(fetchServiceHistory({ token, trolleyId: eventId }));
     } else {
-      const message = resultAction.payload||"Error in creating hall";
+      const message = resultAction.payload || "Error in creating hall";
       errorToast(message);
     }
   };
@@ -70,7 +70,7 @@ const AddHall = ({
   }, [initialState, trolleyId]);
 
   useEffect(() => {
-    token && dispatch(fetchSupervisor({ token }));
+    dispatch(fetchSupervisor({ token }));
     return () => { };
   }, []);
 
@@ -96,7 +96,7 @@ const AddHall = ({
                 className="w-full border bg-gray-100 p-2 rounded-lg outline-none disabled:opacity-50"
               >
                 <option value="">Select trolley</option>
-                {supervisor?.map((trolley, index) => {
+                {(supervisor).map((trolley, index) => {
                   const {
                     _id,
                     username,

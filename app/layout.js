@@ -8,9 +8,9 @@ import NextTopLoader from "nextjs-toploader";
 const nunito = Nunito_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Air India | Trolley Management System",
+  title: " Hall Management System",
   description:
-    "Effective trolley management in manufacturing and construction is important for streamlining operations",
+    "Effective hall management in manufacturing and construction is important for streamlining operations",
 };
 
 export default function RootLayout({ children, witLayout = true }) {
