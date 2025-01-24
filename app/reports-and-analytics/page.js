@@ -136,7 +136,7 @@ const ReportsAndAnalytics = () => {
       const blob = new Blob([buffer], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      saveAs(blob, "events_with_images.xlsx");
+      saveAs(blob, "report"+selectedEvent+".xlsx");
     } catch (error) {
       errorToast("An error occurred");
       console.error(error);
