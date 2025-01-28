@@ -78,11 +78,7 @@ export default function DashboardLayout({ children }) {
             {!userLoading && (
               <Link href="/">
                 <Image
-                  src={`${
-                    role == "Air India"
-                      ? "/image/logo.svg"
-                      : "/image/logo-2.png"
-                  }`}
+                  src={`/image/logo.png`}
                   priority={true}
                   alt="logo"
                   height={50}
