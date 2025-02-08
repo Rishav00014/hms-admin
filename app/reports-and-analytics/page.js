@@ -138,8 +138,8 @@ const ReportsAndAnalytics = () => {
       worksheet.addRow(["Event Designation :", designationTitle]);
       // Add headers
       worksheet.addRow(["S. No.", "Vender Code", "Name", "Position", "Designation", "Hall", "Shift", "Image"]);
-      worksheet.getColumn(3).width = 20;
-      worksheet.getColumn(4).width = 20;
+      worksheet.getColumn(3).width = 30;
+      worksheet.getColumn(4).width = 30;
       worksheet.getColumn(5).width = 20;
       worksheet.getColumn(6).width = 20;
       worksheet.getColumn(7).width = 20;
