@@ -33,7 +33,7 @@
   {
     "icon": "ri-dashboard-horizontal-line",
     "route": "/reports-and-analytics",
-    "label": "dReports and Analytics",
+    "label": "Reports and Analytics",
     "accessFor": ["Super Admin"]
   }
 ]
